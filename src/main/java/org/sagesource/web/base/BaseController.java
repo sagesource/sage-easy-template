@@ -1,6 +1,7 @@
 package org.sagesource.web.base;
 
 import org.sagesource.common.utils.ExceptionMessageUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -16,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class BaseController {
 
+	@Value("${show_error_stack}")
+	private Boolean showErrorStack;
+
 	/**
 	 * 异常处理
 	 *
@@ -27,10 +31,14 @@ public class BaseController {
 	@ExceptionHandler
 	public String exceptionHandler(HttpServletRequest request, Exception e, Model model) {
 		String requestUrl   = request.getRequestURL().toString();
-		String errorMessage = ExceptionMessageUtil.builtStackTraceStr(e, true);
+		if (showErrorStack) {
+			String errorMessage = ExceptionMessageUtil.builtStackTraceStr(e, true);
+			model.addAttribute("error_message", errorMessage);
+		} else {
+			model.addAttribute("error_message", e);
+		}
 
 		model.addAttribute("request_url", requestUrl);
-		model.addAttribute("error_message", errorMessage);
 		return "errorpage/500";
 	}
 

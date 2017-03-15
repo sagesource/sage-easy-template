@@ -24,13 +24,13 @@
     <beans profile="development">
         <context:property-placeholder
                 location="classpath:properties/development/*.properties,classpath:properties/application.properties"/>
-        <beans profile="integrationtest">
-            <context:property-placeholder
-                    location="classpath:properties/integratetest/*.properties,classpath:properties/application.properties"/>
-        </beans>
-        <beans profile="production">
-            <context:property-placeholder
-                    location="classpath:properties/production/*.properties,classpath:properties/application.properties"/>
-        </beans>
+    </beans>
+    <beans profile="integrationtest">
+        <context:property-placeholder
+                location="classpath:properties/integratetest/*.properties,classpath:properties/application.properties"/>
+    </beans>
+    <beans profile="production">
+        <context:property-placeholder
+                location="classpath:properties/production/*.properties,classpath:properties/application.properties"/>
     </beans>
 </beans>
