@@ -4,7 +4,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 主配置文件 -->
+    <!-- 测试配置文件 -->
     <context:annotation-config/>
 
     <context:component-scan base-package="org.sagesource">
@@ -14,22 +14,13 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
-
-    <!-- 将Spring其他组件的配置在这里进行引入即可 -->
-    <import resource="applicationContext-dataSource.xml"/>
-    <import resource="applicationContext-mybatis.xml"/>
-
-    <!-- 根据环境读取配置文件 -->
-    <beans profile="development">
-        <context:property-placeholder
-                location="classpath:properties/development/*.properties,classpath:properties/application.properties"/>
-    </beans>
-    <beans profile="integrationtest">
-        <context:property-placeholder
-                location="classpath:properties/integratetest/*.properties,classpath:properties/application.properties"/>
-    </beans>
-    <beans profile="production">
-        <context:property-placeholder
-                location="classpath:properties/production/*.properties,classpath:properties/application.properties"/>
-    </beans>
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:properties/conf-unittest.properties</value>
+                <value>classpath*:properties/development/jdbc-development.properties</value>
+            </list>
+        </property>
+    </bean>
 </beans>
