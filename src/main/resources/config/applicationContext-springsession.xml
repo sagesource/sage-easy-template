@@ -7,13 +7,13 @@
 
     <!-- redis -->
     <bean id="sessionJedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxTotal" value="30"/>
-        <property name="maxIdle" value="10"/>
-        <property name="minIdle" value="1"/>
-        <property name="maxWaitMillis" value="30000"/>
-        <property name="testOnBorrow" value="true"/>
-        <property name="testOnReturn" value="false"/>
-        <property name="testWhileIdle" value="false"/>
+        <property name="maxTotal" value="${session.redispool.maxTotal}"/>
+        <property name="maxIdle" value="${session.redispool.maxIdle}"/>
+        <property name="minIdle" value="${session.redispool.minIdle}"/>
+        <property name="maxWaitMillis" value="${session.redispool.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${session.redispool.testOnBorrow}"/>
+        <property name="testOnReturn" value="${session.redispool.testOnReturn}"/>
+        <property name="testWhileIdle" value="${session.redispool.testWhileIdle}"/>
     </bean>
 
     <!--这里添加的是Redis，因为使用的是Spring里自带的Redis的Session策略 -->
@@ -24,31 +24,30 @@
         <property name="database" value="${session.redis.database}"/>
         <property name="timeout" value="${session.redis.timeout}"/>
         <property name="poolConfig" ref="sessionJedisPoolConfig"/>
-        <property name="usePool" value="${session.usepool}"/>
-    </bean>
-
-    <bean id="stringSessionRedisSerializer"
-          class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
-
-    <bean id="sessionRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-        <property name="connectionFactory" ref="sessionRedisConnectionFactory"/>
+        <property name="usePool" value="${session.redis.usepool}"/>
     </bean>
 
     <!-- 这里的是为了下面的 Session策略过滤器提供构造函数传入的参数，因为Session过滤器要依赖该对象来构造，所以创建一个先 -->
-    <!--<bean name="redisOperationsSessionRepository"
+    <bean name="redisOperationsSessionRepository"
           class="org.springframework.session.data.redis.RedisOperationsSessionRepository">
-        <constructor-arg ref="sessionRedisConnectionFactory"></constructor-arg>
-    </bean>-->
+        <constructor-arg ref="sessionRedisConnectionFactory"/>
+        <property name="defaultMaxInactiveInterval" value="${session.timeout}"/>
+    </bean>
+
+    <!-- 配置Cookie的信息 -->
+    <bean id="cookieSerializer" class="org.springframework.session.web.http.DefaultCookieSerializer">
+        <property name="cookieName" value="${session.cookiename}"/>
+        <property name="cookiePath" value="${session.cookiepath}"/>
+        <property name="domainName" value="${application.domain}"/>
+    </bean>
+    <bean id="cookieHttpSessionStrategy" class="org.springframework.session.web.http.CookieHttpSessionStrategy">
+        <property name="cookieSerializer" ref="cookieSerializer"/>
+    </bean>
 
     <!-- 这个是Session策略过滤器，即将容器原有的Session持久化机制，代替为Spring的 Redis持久化Session机制。 -->
     <!-- 注意，这个名字与 web.xml里的targetBean的下value是要一致的。 -->
-    <!--<bean name="springSession" class="org.springframework.session.web.http.SessionRepositoryFilter">
-        <constructor-arg ref="redisOperationsSessionRepository"></constructor-arg>
-    </bean>-->
-
-    <!-- 将session放入redis -->
-    <bean id="redisHttpSessionConfiguration"
-          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
-        <property name="maxInactiveIntervalInSeconds" value="1800" />
+    <bean name="springSession" class="org.springframework.session.web.http.SessionRepositoryFilter">
+        <constructor-arg ref="redisOperationsSessionRepository"/>
+        <property name="httpSessionStrategy" ref="cookieHttpSessionStrategy"/>
     </bean>
 </beans>
