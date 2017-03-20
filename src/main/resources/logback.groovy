@@ -40,7 +40,7 @@ if (env == 'development') {
             charset = Charset.forName("UTF-8")
         }
         rollingPolicy(TimeBasedRollingPolicy) {
-            fileNamePattern = "${LOG_RECEIVER_DIR}/translator-%d{yyyy-MM-dd-HH}.zip"
+            fileNamePattern = "${LOG_RECEIVE_DIR}/translator-%d{yyyy-MM-dd-HH}.zip"
             timeBasedFileNamingAndTriggeringPolicy { maxFileSize = '10M' }
         }
     }
