@@ -7,6 +7,9 @@
     <!-- 测试配置文件 -->
     <context:annotation-config/>
 
+    <!-- 初始化SpringHolder -->
+    <bean class="org.sagesource.common.utils.SpringContextHolder" lazy-init="false"/>
+
     <context:component-scan base-package="org.sagesource">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
@@ -19,7 +22,8 @@
         <property name="locations">
             <list>
                 <value>classpath:properties/conf-unittest.properties</value>
-                <value>classpath*:properties/development/jdbc-development.properties</value>
+                <value>classpath*:properties/development/*.properties</value>
+                <value>classpath*:properties/application.properties</value>
             </list>
         </property>
     </bean>

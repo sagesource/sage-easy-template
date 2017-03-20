@@ -2,7 +2,7 @@ package org.sagesource.test.dal.mapper;
 
 import org.junit.Test;
 import org.sagesource.dal.mapper.RegInfoEntityMapper;
-import org.sagesource.test.base.BaseTransTest;
+import org.sagesource.test.base.BaseTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  *     email       job.xueqi@gmail.com
  * </pre>
  */
-public class RegInfoEntityMapperTest extends BaseTransTest {
+public class RegInfoEntityMapperTest extends BaseTest {
 
 	@Autowired
 	private RegInfoEntityMapper regInfoEntityMapper;
