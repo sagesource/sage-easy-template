@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 
 /**
@@ -27,11 +28,11 @@ public class IndexController extends BaseController {
 	 * ${date}:时间</p>
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(HttpSession session, Model model) {
 		model.addAttribute("user", "tester");
 		model.addAttribute("datetime", new Date());
+		model.addAttribute("session", session);
 
 		return "index";
 	}
-
 }

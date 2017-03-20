@@ -19,6 +19,9 @@
     <import resource="applicationContext-dataSource.xml"/>
     <import resource="applicationContext-mybatis.xml"/>
 
+    <!-- Spring Session -->
+    <import resource="applicationContext-springsession.xml"/>
+
     <!-- 根据环境读取配置文件 -->
     <beans profile="development">
         <context:property-placeholder
