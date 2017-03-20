@@ -14,6 +14,8 @@
                                 expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
+    <!-- 初始化SpringHolder -->
+    <bean class="org.sagesource.common.utils.SpringContextHolder" lazy-init="false"/>
 
     <!-- 将Spring其他组件的配置在这里进行引入即可 -->
     <import resource="applicationContext-dataSource.xml"/>
@@ -21,6 +23,8 @@
 
     <!-- Spring Session -->
     <import resource="applicationContext-springsession.xml"/>
+    <!-- Spring Redis -->
+    <import resource="applicationContext-redis.xml"/>
 
     <!-- 根据环境读取配置文件 -->
     <beans profile="development">
