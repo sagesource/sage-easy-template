@@ -27,6 +27,7 @@
     <import resource="applicationContext-redis.xml"/>
     <!-- Spring JMS -->
     <import resource="applicationContext-mq-producer.xml"/>
+    <import resource="applicationContext-mq-consumer.xml"/>
 
     <!-- 根据环境读取配置文件 -->
     <beans profile="development">

@@ -16,7 +16,7 @@ public class MessageQueueUtilTest extends BaseTest {
 
 	@Test
 	public void queueSender_test() {
-		MessageQueueUtil.queueSender("test_queue", "test message1 expire");
+		MessageQueueUtil.queueSender("test_queue", "test message1 expire..........");
 	}
 
 }
