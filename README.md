@@ -9,6 +9,7 @@
 - SpringMVC4.3.7 : 流行的MVC开发框架
 - MyBatis3.4.1 : ORM框架,使用主流的Mybatis
 - Logback1.2.1 : 日志系统
+    + 使用over-slf4j组件,将所有的其他日志系统转换到SLF4J
 - Bootstrap3 : 前端页面框架
 - AngularJS : 前端JS框架
 - Maven : 项目构建工具
@@ -16,8 +17,12 @@
 ### 可选的工具框架
 - Spring Session1.3.0 :  基于Spring的Session管理,当项目进行集群部署时,无需对容器进行session一致性配置
 - Spring Mail : 基于Spring的邮件组件
+- Spring JMS : Spring JMS 组件,脚手架使用ActiveMQ作为参考MQ服务
 
 ### 测试工具框架
 - Spring Test : 基于的Spring的单元测试框架
 
 # 使用
+
+# 未来规划
+- 以该项目为蓝本,编写基于web的,可管理,可插拔的工程结构生成器
