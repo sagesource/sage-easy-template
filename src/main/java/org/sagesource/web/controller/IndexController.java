@@ -35,4 +35,26 @@ public class IndexController extends BaseController {
 
 		return "index";
 	}
+
+	/**
+	 * 登录页入口
+	 *
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model) {
+		return "login";
+	}
+
+	/**
+	 * 管理页面入口
+	 *
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(Model model) {
+		return "admin";
+	}
 }
